@@ -94,7 +94,7 @@ def get_skin_color(image_path):
     b = int(hex_code[4:6], 16)
     return r, g, b
 
-def get_hair_mask(image_path, checkpoint_path="D:/modelkhnt/hair_detect.pt"):
+def get_hair_mask(image_path, checkpoint_path="D:/hair_detect.pt"):
     if isinstance(image_path, np.ndarray):
         img = Image.fromarray(image_path)
     else:

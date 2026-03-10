@@ -42,12 +42,20 @@ def face_shape_func_round():
 def face_shape_func():
     # Nếu là POST (gửi file)
     if request.method == "POST":
-         try:
+         try: 
             # Lấy file gửi lên
             image = request.files['file']
             if image:
                 # Lưu file3
-                path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:\Python\khnt\image_get' + image.filename)
+                path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
+                # app.config['UPLOAD_FOLDER'] = r"D:/Python/FusionAIVytec2023/static/"  # Dùng 'r' để tránh lỗi escape sequence
+
+                # # Tạo thư mục nếu chưa có
+                # os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+                # # Lọc bỏ ký tự đặc biệt trong tên file
+                # safe_filename = re.sub(r'[/*?:"<>|]', '_', image.filename)
+                # path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], safe_filename)
                 print("Save = ", path_to_save)
                 image.save(path_to_save)
                 if detect_face(path_to_save) == False:
@@ -57,7 +65,7 @@ def face_shape_func():
                 # skin_color = get_skin_color(path_to_save)
                 # hair_color = get_hair_color(path_to_save)
                 
-                label = f'Face: {face_shape}\n' 
+                label = f'Face: {face_shape}'
                 
                 if face_shape in classes:
                     # Trả về kết quả
@@ -134,7 +142,17 @@ def personal_color_func():
             image = request.files['file']
             if image:
                 # Lưu file
-                path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:\Python\khnt\image_get' + image.filename)
+                path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
+                # # Định nghĩa thư mục lưu file
+                # app.config['UPLOAD_FOLDER'] = r"D:/Python/FusionAIVytec2023/static/"  # Dùng 'r' để tránh lỗi escape sequence
+
+                # # Tạo thư mục nếu chưa có
+                # os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+                # # Lọc bỏ ký tự đặc biệt trong tên file
+                # # import re
+                # safe_filename = re.sub(r'[/*?:"<>|]', '_', image.filename)
+                # path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], safe_filename)
                 print("Save = ", path_to_save)
                 image.save(path_to_save)
                 if detect_face(path_to_save) == False:

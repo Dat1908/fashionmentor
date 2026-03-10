@@ -33,7 +33,7 @@
             <div class='result_id'>{{ msg }}</div>
             {% if label %}
             <div class='result_id'>Nhận diện được: <span class='result_label'>{{ label }}</span></div>
-            {% set face_shape = label.split(": ")[1] | lower %}
+            {% set face_shape = label.split(": ")[1].strip() | lower %}
             <form action="/face_shape/{{face_shape}}" method="GET">
                 <button>Xem thêm về màu {{ label}}</button>
             </form>

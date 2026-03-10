@@ -10,7 +10,7 @@ from timeit import default_timer
 device = 'cpu'
 classes = ['Heart', 'Oblong', 'Oval', 'Round', 'Square']
 
-def load_face_model(weight_path="D:/modelkhnt/shape_face.pth"):
+def load_face_model(weight_path="D:/shape_face.pth"):
     weights = torch.load(weight_path, map_location=torch.device('cpu'))
     model = torchvision.models.efficientnet_b4()
     model.classifier = nn.Linear(model.classifier[1].in_features, len(classes))
@@ -43,14 +43,10 @@ def get_face_shape(
     target_image_pred_probs = torch.softmax(target_image_pred, dim=1)
     target_image_pred_label = torch.argmax(target_image_pred_probs, dim=1)
 
-    if target_image_pred_probs.max() > 0.5:
-        # plt.figure()
-        # plt.imshow(img)
-        # plt.title(
-        #     f"Pred: {class_names[target_image_pred_label]} | Prob: {target_image_pred_probs.max():.3f}"
-        # )
-        # plt.axis(False)
-        # plt.show()
+    print(f'[DEBUG] Predicted: {class_names[target_image_pred_label]} | Probability: {target_image_pred_probs.max():.4f}')
+    print(f'[DEBUG] All probs: {dict(zip(class_names, target_image_pred_probs[0].tolist()))}')
+
+    if target_image_pred_probs.max() > 0.3:
         print('Type: ' + class_names[target_image_pred_label] + ' | Probability: ' + str(target_image_pred_probs.max().item()))
         return class_names[target_image_pred_label]
     else:
