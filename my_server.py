@@ -26,16 +26,11 @@ app.config['UPLOAD_FOLDER'] = ""
 def home_page():
     return render_template("home.html")
 
-# Giao diện thông tin của personal color
-@app.route("/face_shape/round", methods=['GET', 'POST']) # Personal color
-def face_shape_func_round():
-    # Nếu là POST (gửi file)
-    if request.method == "POST":
-         return render_template('round.html')
-
-    else:
-        # Nếu là GET thì hiển thị giao diện upload
-        return render_template('round.html')
+# Giao diện thông tin của face shape
+@app.route("/face_shape/<shape>", methods=['GET', 'POST'])
+def face_shape_detail(shape):
+    template_name = f"{shape.lower().replace(' ', '_')}.html"
+    return render_template(template_name)
     
 # Giao diện đoán face shape
 @app.route("/face_shape", methods=['GET', 'POST']) # Face Shape
@@ -89,16 +84,11 @@ def face_shape_func():
         return render_template('face_shape.html')
 
 
-# Giao diện thông tin của personal color
-@app.route("/body_shape/hourglass", methods=['GET', 'POST']) # Personal color
-def body_shape_func_hourglass():
-    # Nếu là POST (gửi file)
-    if request.method == "POST":
-         return render_template('hourglass.html')
-
-    else:
-        # Nếu là GET thì hiển thị giao diện upload
-        return render_template('hourglass.html')  
+# Giao diện thông tin của body shape
+@app.route("/body_shape/<shape>", methods=['GET', 'POST'])
+def body_shape_detail(shape):
+    template_name = f"{shape.lower().replace(' ', '_')}.html"
+    return render_template(template_name)
 
 # Giao diện đoán face shape
 @app.route("/body_shape", methods=['GET', 'POST'])
@@ -122,15 +112,10 @@ def body_shape_func():
         return render_template('body_shape.html')
 
 # Giao diện thông tin của personal color
-@app.route("/personal_color/light_summer", methods=['GET', 'POST']) # Personal color
-def personal_color_func_light_summer():
-    # Nếu là POST (gửi file)
-    if request.method == "POST":
-         return render_template('light_summer.html')
-
-    else:
-        # Nếu là GET thì hiển thị giao diện upload
-        return render_template('light_summer.html')
+@app.route("/personal_color/<color_name>", methods=['GET', 'POST'])
+def personal_color_detail(color_name):
+    template_name = f"{color_name.lower().replace(' ', '_')}.html"
+    return render_template(template_name)
 
 # Giao diện đoán personal color
 @app.route("/personal_color", methods=['GET', 'POST']) # Personal color
