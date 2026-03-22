@@ -5,9 +5,20 @@
 import os
 from random import random
 # Import flask
-from flask import Flask
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS, cross_origin
+from html.parser import HTMLParser
+from dotenv import load_dotenv
+
+# ── Google GenAI (new SDK) ──
+from google import genai as google_genai
+from google.genai import types as genai_types
+
+load_dotenv()
+_GEMINI_KEY = os.getenv("GEMINI_API_KEY")
+_genai_client = google_genai.Client(api_key=_GEMINI_KEY) if _GEMINI_KEY else None
+_CHAT_MODEL   = "gemini-2.5-flash"
+_SEARCH_MODEL = "gemini-2.5-pro"
 # Import cac ham chinh
 from body_shape_calculator import get_body_shape
 from face_shape_detector import load_face_model, get_face_shape
@@ -166,5 +177,149 @@ def personal_color_func():
         # Nếu là GET thì hiển thị giao diện upload
         return render_template('personal_color.html')
 
+# ============================================================
+# CHATBOT HELPERS
+# ============================================================
+
+class _TextExtractor(HTMLParser):
+    """Trích xuất text thuần từ HTML (không dùng thư viện ngoài)."""
+    def __init__(self):
+        super().__init__()
+        self._parts = []
+        self._skip  = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('script', 'style'):
+            self._skip = True
+
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style'):
+            self._skip = False
+
+    def handle_data(self, data):
+        if not self._skip:
+            stripped = data.strip()
+            if stripped:
+                self._parts.append(stripped)
+
+    def get_text(self):
+        return '\n'.join(self._parts)
+
+
+def _get_page_context(page_name: str) -> str:
+    """Đọc template HTML và trả về nội dung text thuần (tối đa 3500 ký tự)."""
+    if not page_name:
+        return ''
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(base_dir, 'templates', f'{page_name}.html')
+    if not os.path.exists(path):
+        return ''
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            raw = f.read()
+        parser = _TextExtractor()
+        parser.feed(raw)
+        return parser.get_text()[:3500]
+    except Exception:
+        return ''
+
+
+def _ai_chat(prompt: str) -> str:
+    resp = _genai_client.models.generate_content(
+        model=_CHAT_MODEL,
+        contents=prompt,
+        config=genai_types.GenerateContentConfig(
+            temperature=0.7,
+            top_p=0.9,
+            max_output_tokens=2048,
+        ),
+    )
+    return resp.text
+
+
+def _ai_search(prompt: str) -> str:
+    tool = genai_types.Tool(google_search=genai_types.GoogleSearch())
+    resp = _genai_client.models.generate_content(
+        model=_SEARCH_MODEL,
+        contents=prompt,
+        config=genai_types.GenerateContentConfig(
+            tools=[tool],
+            temperature=0.3,
+        ),
+    )
+    return resp.text
+
+
+# ============================================================
+# CHATBOT ROUTES
+# ============================================================
+
+@app.route('/chatbot')
+def chatbot_page():
+    return render_template('chatbot.html')
+
+
+@app.route('/api/chat', methods=['POST'])
+def chatbot_api():
+    if not _genai_client:
+        return jsonify({'error': 'Thiếu GEMINI_API_KEY trong file .env'}), 500
+
+    data   = request.get_json(force=True) or {}
+    prompt = data.get('prompt', '').strip()
+    mode   = data.get('mode', 'chat')   # 'chat' | 'search'
+    page   = data.get('page', '').strip()
+
+    if not prompt:
+        return jsonify({'error': 'Prompt không được để trống'}), 400
+
+    context = _get_page_context(page)
+
+    if context:
+        full_prompt = (
+            f"Bạn là trợ lý thời trang AI thông minh của FashionMentor. "
+            f"Dựa trên nội dung thời trang sau đây:\n\n"
+            f"---\n{context}\n---\n\n"
+            f"Hãy trả lời câu hỏi bằng tiếng Việt một cách chi tiết và hữu ích.\n"
+            f"Câu hỏi: {prompt}"
+        )
+    else:
+        full_prompt = (
+            f"Bạn là trợ lý thời trang AI của FashionMentor. "
+            f"Hãy trả lời bằng tiếng Việt: {prompt}"
+        )
+
+    try:
+        if mode == 'search':
+            result = _ai_search(full_prompt)
+        else:
+            result = _ai_chat(full_prompt)
+        return jsonify({'result': result})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# ============================================================
+# AUTO-INJECT Chatbot Widget vào mọi trang HTML kết quả
+# ============================================================
+
+WIDGET_SCRIPT = '\n<script src="/static/js/chatbot_widget.js" defer></script>\n'
+EXCLUDED_PATHS = {'/chatbot', '/api/chat'}
+
+@app.after_request
+def inject_chatbot_widget(response):
+    """Tự động chèn floating chatbot widget vào cuối mọi trang HTML."""
+    if request.path in EXCLUDED_PATHS:
+        return response
+    if 'text/html' not in response.content_type:
+        return response
+    content = response.get_data(as_text=True)
+    if '</body>' in content:
+        content = content.replace('</body>', WIDGET_SCRIPT + '</body>', 1)
+        response.set_data(content)
+    return response
+
+
+# ============================================================
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True)

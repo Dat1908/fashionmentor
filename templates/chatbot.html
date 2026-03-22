@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionMentor AI – Trợ lý thời trang</title>
+    <meta name="description" content="Chatbot AI thời trang thông minh giúp bạn tư vấn về dáng người, khuôn mặt và màu sắc cá nhân.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --purple: #7c3aed;
+            --pink: #db2777;
+            --purple-light: #a855f7;
+            --bg: #07070f;
+            --bg-2: rgba(255,255,255,0.03);
+            --border: rgba(255,255,255,0.08);
+            --text: #e2e8f0;
+            --text-dim: #9ca3af;
+            --text-muted: #4b5563;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 272px;
+            height: 100vh;
+            background: var(--bg-2);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 22px 20px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 17px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0 16px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar { width: 3px; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+        .cat-label {
+            padding: 10px 18px 4px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 18px;
+            cursor: pointer;
+            font-size: 13.5px;
+            color: var(--text-dim);
+            border-left: 2px solid transparent;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
+            user-select: none;
+        }
+
+        .topic-item:hover {
+            background: rgba(168,85,247,0.09);
+            color: #c4b5fd;
+            border-left-color: rgba(168,85,247,0.45);
+        }
+
+        .topic-item.active {
+            background: rgba(168,85,247,0.13);
+            color: #c4b5fd;
+            border-left-color: var(--purple-light);
+            font-weight: 500;
+        }
+
+        .topic-item .ti { font-size: 15px; }
+
+        /* ── MAIN ── */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        /* Header */
+        .chat-header {
+            padding: 14px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.015);
+            flex-shrink: 0;
+            gap: 16px;
+        }
+
+        .topic-info h2 { font-size: 15.5px; font-weight: 600; color: #f1f5f9; }
+        .topic-info p  { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+        /* Mode toggle */
+        .mode-toggle {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 3px;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .mode-btn {
+            padding: 6px 15px;
+            border-radius: 40px;
+            border: none;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.22s;
+            background: transparent;
+            color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            box-shadow: 0 2px 14px rgba(124,58,237,0.45);
+        }
+
+        /* Messages */
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 28px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .messages::-webkit-scrollbar { width: 4px; }
+        .messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.09); border-radius: 4px; }
+
+        /* Welcome */
+        .welcome {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            text-align: center;
+            padding: 40px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.2s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 0.7; } }
+
+        .welcome-icon {
+            width: 76px; height: 76px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(219,39,119,0.2));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 34px;
+            box-shadow: 0 0 40px rgba(124,58,237,0.15);
+        }
+
+        .welcome h3 { font-size: 20px; font-weight: 600; color: #f1f5f9; }
+        .welcome p  { font-size: 13.5px; color: var(--text-muted); max-width: 340px; line-height: 1.65; }
+
+        /* Suggestion chips */
+        .suggestions {
+            display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 6px;
+        }
+
+        .chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(168,85,247,0.3);
+            color: #c4b5fd;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.18s;
+            background: rgba(168,85,247,0.07);
+        }
+
+        .chip:hover {
+            background: rgba(168,85,247,0.18);
+            border-color: rgba(168,85,247,0.6);
+        }
+
+        /* Message bubbles */
+        .msg {
+            display: flex;
+            gap: 11px;
+            animation: slideUp 0.28s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg.user { flex-direction: row-reverse; }
+
+        .avatar {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+        }
+
+        .avatar.ai   { background: linear-gradient(135deg, var(--purple), var(--pink)); }
+        .avatar.user { background: rgba(255,255,255,0.09); }
+
+        .bubble {
+            max-width: 74%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 13.5px;
+            line-height: 1.7;
+        }
+
+        .bubble.ai {
+            background: rgba(255,255,255,0.048);
+            border: 1px solid var(--border);
+            border-top-left-radius: 5px;
+            color: var(--text);
+        }
+
+        /* Markdown in AI bubble */
+        .bubble.ai h1, .bubble.ai h2, .bubble.ai h3 {
+            color: #c4b5fd; margin: 12px 0 5px; font-size: 14.5px;
+        }
+        .bubble.ai ul, .bubble.ai ol { padding-left: 20px; margin: 5px 0; }
+        .bubble.ai li { margin: 3px 0; }
+        .bubble.ai a  { color: #a78bfa; text-decoration: underline; }
+        .bubble.ai strong { color: #f0abfc; }
+        .bubble.ai em { color: #94a3b8; }
+        .bubble.ai code {
+            background: rgba(0,0,0,0.35); padding: 1px 6px;
+            border-radius: 4px; font-size: 12px; font-family: monospace;
+        }
+        .bubble.ai pre {
+            background: rgba(0,0,0,0.35); padding: 10px 14px;
+            border-radius: 8px; overflow-x: auto; margin: 8px 0;
+        }
+        .bubble.ai blockquote {
+            border-left: 3px solid var(--purple); padding-left: 12px;
+            color: var(--text-dim); margin: 8px 0;
+        }
+
+        .bubble.user {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            border-top-right-radius: 5px;
+        }
+
+        .mode-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 10.5px; padding: 2px 8px;
+            border-radius: 20px; margin-bottom: 7px;
+            background: rgba(255,255,255,0.07); color: var(--text-dim);
+        }
+
+        .mode-badge.search { background: rgba(16,185,129,0.12); color: #34d399; }
+
+        /* Loading dots */
+        .dots { display: flex; gap: 5px; padding: 4px 0; align-items: center; }
+        .dots span {
+            width: 8px; height: 8px; border-radius: 50%;
+            animation: bounce 1.3s infinite;
+        }
+        .dots span:nth-child(1) { background: var(--purple); }
+        .dots span:nth-child(2) { background: var(--purple-light); animation-delay: 0.2s; }
+        .dots span:nth-child(3) { background: var(--pink); animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%,60%,100% { transform: translateY(0); opacity:.55; }
+            30%          { transform: translateY(-8px); opacity:1; }
+        }
+
+        /* Input area */
+        .input-area {
+            padding: 14px 24px 18px;
+            border-top: 1px solid var(--border);
+            background: rgba(255,255,255,0.015);
+            flex-shrink: 0;
+        }
+
+        .input-box {
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 9px 10px 9px 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-box:focus-within {
+            border-color: rgba(168,85,247,0.55);
+            box-shadow: 0 0 0 3px rgba(168,85,247,0.1);
+        }
+
+        .input-box textarea {
+            flex: 1;
+            background: none; border: none; outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px; color: var(--text);
+            resize: none; max-height: 130px; min-height: 24px;
+            line-height: 1.5;
+        }
+
+        .input-box textarea::placeholder { color: var(--text-muted); }
+
+        .send-btn {
+            width: 38px; height: 38px;
+            border-radius: 11px; border: none;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; flex-shrink: 0; font-size: 15px;
+        }
+
+        .send-btn:hover:not(:disabled) { transform: scale(1.07); box-shadow: 0 4px 18px rgba(124,58,237,0.45); }
+        .send-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+
+        .input-hint {
+            font-size: 10.5px; color: var(--text-muted);
+            margin-top: 7px; text-align: center;
+        }
+
+        /* Scrollbar corner fix */
+        ::-webkit-scrollbar-corner { background: transparent; }
+    </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo">✨ FashionMentor AI</div>
+        <div class="logo-sub">Trợ lý thời trang thông minh</div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+        <div class="cat-label">😀 Hình dạng khuôn mặt</div>
+        <div class="topic-item" onclick="pickTopic(this,'heart','Mặt Tim','❤️')" data-page="heart"><span class="ti">❤️</span> Mặt Tim</div>
+        <div class="topic-item" onclick="pickTopic(this,'oblong','Mặt Chữ Điền','🟦')" data-page="oblong"><span class="ti">🟦</span> Mặt Chữ Điền</div>
+        <div class="topic-item" onclick="pickTopic(this,'oval','Mặt Oval','🥚')" data-page="oval"><span class="ti">🥚</span> Mặt Oval</div>
+        <div class="topic-item" onclick="pickTopic(this,'round','Mặt Tròn','⭕')" data-page="round"><span class="ti">⭕</span> Mặt Tròn</div>
+        <div class="topic-item" onclick="pickTopic(this,'square','Mặt Vuông','⬛')" data-page="square"><span class="ti">⬛</span> Mặt Vuông</div>
+
+        <div class="cat-label">👗 Dáng người</div>
+        <div class="topic-item" onclick="pickTopic(this,'apple','Dáng Táo','🍎')" data-page="apple"><span class="ti">🍎</span> Dáng Táo</div>
+        <div class="topic-item" onclick="pickTopic(this,'banana','Dáng Chuối','🍌')" data-page="banana"><span class="ti">🍌</span> Dáng Chuối</div>
+        <div class="topic-item" onclick="pickTopic(this,'hourglass','Dáng Đồng Hồ Cát','⏳')" data-page="hourglass"><span class="ti">⏳</span> Dáng Đồng Hồ Cát</div>
+        <div class="topic-item" onclick="pickTopic(this,'pear','Dáng Lê','🍐')" data-page="pear"><span class="ti">🍐</span> Dáng Lê</div>
+        <div class="topic-item" onclick="pickTopic(this,'strawberry','Dáng Dâu Tây','🍓')" data-page="strawberry"><span class="ti">🍓</span> Dáng Dâu Tây</div>
+
+        <div class="cat-label">🎨 Màu sắc cá nhân</div>
+        <div class="topic-item" onclick="pickTopic(this,'clear_spring','Clear Spring','🌸')" data-page="clear_spring"><span class="ti">🌸</span> Clear Spring</div>
+        <div class="topic-item" onclick="pickTopic(this,'clear_winter','Clear Winter','❄️')" data-page="clear_winter"><span class="ti">❄️</span> Clear Winter</div>
+        <div class="topic-item" onclick="pickTopic(this,'cool_summer','Cool Summer','🌊')" data-page="cool_summer"><span class="ti">🌊</span> Cool Summer</div>
+        <div class="topic-item" onclick="pickTopic(this,'cool_winter','Cool Winter','🌨️')" data-page="cool_winter"><span class="ti">🌨️</span> Cool Winter</div>
+        <div class="topic-item" onclick="pickTopic(this,'deep_autumn','Deep Autumn','🍂')" data-page="deep_autumn"><span class="ti">🍂</span> Deep Autumn</div>
+        <div class="topic-item" onclick="pickTopic(this,'deep_winter','Deep Winter','🌑')" data-page="deep_winter"><span class="ti">🌑</span> Deep Winter</div>
+        <div class="topic-item" onclick="pickTopic(this,'light_spring','Light Spring','🌻')" data-page="light_spring"><span class="ti">🌻</span> Light Spring</div>
+        <div class="topic-item" onclick="pickTopic(this,'light_summer','Light Summer','☀️')" data-page="light_summer"><span class="ti">☀️</span> Light Summer</div>
+        <div class="topic-item" onclick="pickTopic(this,'soft_autumn','Soft Autumn','🍁')" data-page="soft_autumn"><span class="ti">🍁</span> Soft Autumn</div>
+        <div class="topic-item" onclick="pickTopic(this,'soft_summer','Soft Summer','🌤️')" data-page="soft_summer"><span class="ti">🌤️</span> Soft Summer</div>
+        <div class="topic-item" onclick="pickTopic(this,'warm_autumn','Warm Autumn','🍊')" data-page="warm_autumn"><span class="ti">🍊</span> Warm Autumn</div>
+        <div class="topic-item" onclick="pickTopic(this,'warm_spring','Warm Spring','🌺')" data-page="warm_spring"><span class="ti">🌺</span> Warm Spring</div>
+
+        <div class="cat-label">💬 Tổng quát</div>
+        <div class="topic-item" onclick="pickTopic(this,'','Chat tự do','💬')" data-page=""><span class="ti">💬</span> Chat không ngữ cảnh</div>
+    </nav>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+    <!-- Header -->
+    <div class="chat-header">
+        <div class="topic-info">
+            <h2 id="topic-title">Chọn chủ đề từ danh sách bên trái</h2>
+            <p id="topic-desc">AI sẽ được cung cấp nội dung của chủ đề đó làm ngữ cảnh</p>
+        </div>
+        <div class="mode-toggle">
+            <button class="mode-btn active" id="btn-chat" onclick="setMode('chat')">💬 Chat</button>
+            <button class="mode-btn" id="btn-search" onclick="setMode('search')">🔍 Web Search</button>
+        </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" id="messages">
+        <div class="welcome" id="welcome-screen">
+            <div class="welcome-icon">✨</div>
+            <h3>FashionMentor AI</h3>
+            <p>Chọn một chủ đề ở bên trái, sau đó đặt câu hỏi về thời trang. AI sẽ tư vấn dựa trên nội dung chủ đề đó.</p>
+            <div class="suggestions">
+                <div class="chip" onclick="quickAsk('Tôi nên mặc gì để tôn dáng?')">Tôi nên mặc gì để tôn dáng?</div>
+                <div class="chip" onclick="quickAsk('Màu nào hợp với tôi nhất?')">Màu nào hợp với tôi nhất?</div>
+                <div class="chip" onclick="quickAsk('Kiểu tóc nào phù hợp?')">Kiểu tóc nào phù hợp?</div>
+                <div class="chip" onclick="quickAsk('Gợi ý outfit cho đi làm?')">Gợi ý outfit cho đi làm?</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input -->
+    <div class="input-area">
+        <div class="input-box">
+            <textarea
+                id="prompt-input"
+                placeholder="Hỏi về thời trang... (Enter gửi, Shift+Enter xuống dòng)"
+                rows="1"
+                onkeydown="handleKey(event)"
+                oninput="autoResize(this)"
+            ></textarea>
+            <button class="send-btn" id="send-btn" onclick="sendMsg()" title="Gửi (Enter)">➤</button>
+        </div>
+        <div class="input-hint" id="hint-text">Chế độ: 💬 Chat · Gemini 2.5 Flash</div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    let curPage = '';
+    let curMode = 'chat';
+    let busy    = false;
+
+    marked.setOptions({ breaks: true, gfm: true });
+
+    /* ── Mode toggle ── */
+    function setMode(m) {
+        curMode = m;
+        document.getElementById('btn-chat').classList.toggle('active', m === 'chat');
+        document.getElementById('btn-search').classList.toggle('active', m === 'search');
+        document.getElementById('hint-text').textContent =
+            m === 'chat'
+            ? 'Chế độ: 💬 Chat · Gemini 2.5 Flash'
+            : 'Chế độ: 🔍 Web Search (tìm kiếm internet) · Gemini 2.5 Pro';
+    }
+
+    /* ── Topic selection ── */
+    function pickTopic(el, page, name, icon) {
+        curPage = page;
+        document.querySelectorAll('.topic-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('topic-title').textContent = icon + ' ' + name;
+        document.getElementById('topic-desc').textContent  = page
+            ? `Ngữ cảnh: nội dung trang ${page}.html`
+            : 'Chat tự do – không có ngữ cảnh cụ thể';
+
+        // Reset messages
+        const msgs = document.getElementById('messages');
+        msgs.innerHTML = '';
+        addMsg('ai', `Xin chào! Tôi là trợ lý AI của **FashionMentor** 👗\n\n`
+            + (page
+                ? `Bạn đang xem chủ đề **${name}**. Tôi đã được cung cấp toàn bộ nội dung trang đó làm ngữ cảnh.\n\n`
+                : `Bạn có thể hỏi tôi bất cứ điều gì về thời trang!\n\n`)
+            + `Hãy đặt câu hỏi và tôi sẽ tư vấn cho bạn 🌟`, 'chat');
+
+        document.getElementById('prompt-input').focus();
+    }
+
+    /* ── Quick suggestion chips ── */
+    function quickAsk(text) {
+        if (!curPage) {
+            // Pick free chat if nothing selected
+            document.querySelector('[data-page=""]').click();
+        }
+        document.getElementById('prompt-input').value = text;
+        sendMsg();
+    }
+
+    /* ── Add message bubble ── */
+    function addMsg(role, content, mode) {
+        const msgs = document.getElementById('messages');
+        const div  = document.createElement('div');
+        div.className = `msg ${role}`;
+
+        const avatarChar = role === 'ai' ? '✨' : '👤';
+        let inner = '';
+
+        if (role === 'ai') {
+            const badgeCls  = mode === 'search' ? 'search' : '';
+            const badgeTxt  = mode === 'search' ? '🔍 Web Search' : '💬 Chat';
+            inner = `
+                <div class="avatar ai">${avatarChar}</div>
+                <div class="bubble ai">
+                    <div class="mode-badge ${badgeCls}">${badgeTxt}</div>
+                    ${marked.parse(content)}
+                </div>`;
+        } else {
+            inner = `
+                <div class="avatar user">${avatarChar}</div>
+                <div class="bubble user">${escHtml(content)}</div>`;
+        }
+
+        div.innerHTML = inner;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+        return div;
+    }
+
+    /* ── Loading indicator ── */
+    function showLoading() {
+        const msgs = document.getElementById('messages');
+        const div  = document.createElement('div');
+        div.className = 'msg ai';
+        div.id = 'loading-indicator';
+        div.innerHTML = `
+            <div class="avatar ai">✨</div>
+            <div class="bubble ai"><div class="dots"><span></span><span></span><span></span></div></div>`;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function hideLoading() {
+        const el = document.getElementById('loading-indicator');
+        if (el) el.remove();
+    }
+
+    /* ── Send message ── */
+    async function sendMsg() {
+        if (busy) return;
+        const input = document.getElementById('prompt-input');
+        const text  = input.value.trim();
+        if (!text) return;
+
+        input.value = '';
+        input.style.height = 'auto';
+
+        addMsg('user', text);
+        showLoading();
+
+        busy = true;
+        document.getElementById('send-btn').disabled = true;
+
+        try {
+            const res  = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: text, mode: curMode, page: curPage })
+            });
+            const data = await res.json();
+            hideLoading();
+
+            if (data.error) {
+                addMsg('ai', `❌ Lỗi: ${data.error}`, curMode);
+            } else {
+                addMsg('ai', data.result, curMode);
+            }
+        } catch (err) {
+            hideLoading();
+            addMsg('ai', `❌ Lỗi kết nối: ${err.message}`, curMode);
+        } finally {
+            busy = false;
+            document.getElementById('send-btn').disabled = false;
+            input.focus();
+        }
+    }
+
+    function handleKey(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+    }
+
+    function autoResize(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 130) + 'px';
+    }
+
+    function escHtml(t) {
+        return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    }
+
+    /* ── Init from URL param ── */
+    const urlPage = new URLSearchParams(location.search).get('page');
+    if (urlPage) {
+        const el = document.querySelector(`[data-page="${urlPage}"]`);
+        if (el) { el.click(); el.scrollIntoView({ block: 'center' }); }
+    }
+</script>
+</body>
+</html>
