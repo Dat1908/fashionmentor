@@ -16,8 +16,24 @@ body {
                 background-repeat: no-repeat;
                 background-size: cover;
                 height: 100%;
-                overflow-x: scroll;
+                overflow-x: hidden;
             }
+
+        /* Animations */
+        @keyframes slideDownPC {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUpPC {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInPC {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
         .header {
             background-color: rgba(0, 0, 0, 0.3);
@@ -25,9 +41,9 @@ body {
             text-transform: uppercase;
             font-size: 40px;
             color:white;
-
             text-align: center;
             padding: 30px;
+            animation: slideDownPC 0.6s ease-out forwards;
         }
         
         /* Add this to your personal_color.css file */
@@ -41,11 +57,11 @@ body {
     text-decoration: none; /* Removes the underline from links */
     border-radius: 5px; /* Rounds the corners of the button */
     font-weight: bold; /* Makes the text bold */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: absolute;
     top: 3%;
     left: 2%;
-    
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 form button {
@@ -57,21 +73,24 @@ form button {
     text-decoration: none; /* Removes the underline from links */
     border-radius: 5px; /* Rounds the corners of the button */
     font-weight: bold; /* Makes the text bold */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-    
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 form button:hover {
     background-color: #392f05; /* Color when the mouse hovers over the button */
     text-decoration: none; /* Ensures the underline does not re-appear on hover */
     color: white; /* Text color remains white on hover */
-    
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .back_home_button:hover {
     background-color: #392f05; /* Color when the mouse hovers over the button */
     text-decoration: none; /* Ensures the underline does not re-appear on hover */
     color: white; /* Text color remains white on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 
@@ -94,6 +113,7 @@ form button:hover {
             background-color: rgba(0, 0, 0, 0.3);
             text-align: center;
             padding: 40px;
+            animation: slideUpPC 0.6s ease-out 0.2s backwards;
         }
 
         .upload_button {
@@ -107,6 +127,13 @@ form button:hover {
             -moz-box-shadow: 6px 8px 18px -5px rgba(0, 0, 0, 0.38);
             box-shadow: 6px 8px 18px -5px rgba(0, 0, 0, 0.38);
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .upload_button:hover {
+            transform: translateY(-3px);
+            box-shadow: 6px 12px 25px -5px rgba(0, 0, 0, 0.5);
+            background-color: #a78631;
         }
 
         .upload_hint {
@@ -118,6 +145,7 @@ form button:hover {
         .result_part {
             text-align: center;
             padding: 40px;
+            animation: fadeInPC 0.8s ease-out 0.4s backwards;
         }
 
         .result_title {

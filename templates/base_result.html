@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% if view == 'summary' or not view %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    {% else %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/light_summer.css') }}">
+    {% endif %}
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+{% if view == 'summary' or not view %}
+<div class="dashboard-container">
+    <header>
+        <h1>{% block header %}{% endblock %}</h1>
+    </header>
+
+    <div class="summary-hero">
+        <img class="hero-img" src="{% block hero_img %}{% endblock %}" alt="Hero Image">
+        <div class="hero-content">
+            <p class="hero-desc">
+                {% block summary_text %}{% endblock %}
+            </p>
+            <br>
+            <a href="?view=detail" class="btn-detail">Xem chi tiết toàn bộ</a>
+        </div>
+    </div>
+
+    <div class="grid-sections">
+        {% block cards %}{% endblock %}
+    </div>
+
+    <div class="footer-nav">
+        <a href="/" class="btn-back">← Back to Home</a>
+    </div>
+</div>
+{% else %}
+<div class="detail-view">
+    <div class="site-container">
+        {% block detail_content %}{% endblock %}
+        <div class='footer'>
+            <a href="?view=summary" class="btn-detail">Quay lại Tổng quát</a>
+            <a href="/" class="back_home_button">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+</body>
+</html>

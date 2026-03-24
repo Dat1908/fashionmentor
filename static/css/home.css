@@ -60,3 +60,46 @@ a, a:visited {
         font-size: 2.5rem; /* Giảm kích thước tiêu đề cho màn hình nhỏ */
     }
 }
+
+/* --- ANIMATIONS --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.title {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.container {
+    position: relative;
+    top: 275px;
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0; /* Cho animation */
+}
+
+/* Cải thiện hiệu ứng hover cho button */
+button {
+    background-color: #4d2715d0;
+    border: none;
+    border-radius: 5px;
+    color: rgb(203, 194, 185);
+    cursor: pointer;
+    font-size: 1.25rem;
+    margin: 1rem;
+    padding: 10px 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #371d10;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}

@@ -1,136 +1,65 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base_result.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oblong Face</title>
-    <link rel="stylesheet" href="../static/css/light_summer.css">
-</head>
+{% block title %}Oblong Face Shape{% endblock %}
 
-<body>
+{% block header %}Khuôn mặt dài (Oblong Face Shape){% endblock %}
 
-    <h1>Oblong Face Shape</h1>
+{% block hero_img %}https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Oblong_face_shape.svg/512px-Oblong_face_shape.svg.png{% endblock %}
 
-    <div class="site-container">
+{% block summary_text %}
+    Khuôn mặt dài (Oblong face) có chiều dài lớn hơn chiều rộng rõ rệt. 
+    Để khuôn mặt trông cân đối hơn, hãy chọn kiểu tóc tạo thêm độ rộng hai bên và kính bản lớn giúp rút ngắn chiều dài khuôn mặt.
+{% endblock %}
 
-        <h1 class="entry-title">Kiểu khuôn mặt dài</h1>
-
-        <p class="contrast">
-            Khuôn mặt dài (Oblong face) là kiểu khuôn mặt có chiều dài
-            lớn hơn chiều rộng rõ rệt. Trán, gò má và hàm thường có
-            chiều rộng gần tương đương nhau.
-        </p>
-
-        <p class="contrast">
-            Đặc điểm của khuôn mặt dài là phần trán cao,
-            phần cằm dài và khuôn mặt tổng thể trông thanh mảnh.
-        </p>
-
-        <p class="contrast">
-            Những người có khuôn mặt dài thường mang lại cảm giác
-            sang trọng và trưởng thành. Tuy nhiên nếu không chọn
-            kiểu tóc phù hợp thì khuôn mặt có thể trông dài hơn.
-        </p>
-
-        <p align="center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Oblong_face_shape.svg/512px-Oblong_face_shape.svg.png"
-                width="400">
-        </p>
-
-        <hr>
-
-        <h1 class="entry-title">Kiểu tóc phù hợp</h1>
-
-        <p>
-            Mục tiêu của kiểu tóc cho mặt dài là giúp tạo thêm
-            độ rộng hai bên khuôn mặt và giảm cảm giác khuôn mặt quá dài.
-        </p>
-
-        <ol>
-
-            <li>
-                <h2>Tóc bob ngang vai</h2>
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" width="600">
-                <p>Giúp khuôn mặt trông cân đối hơn.</p>
-            </li>
-
-            <li>
-                <h2>Tóc mái thưa</h2>
-                <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe" width="600">
-                <p>Mái thưa giúp giảm chiều dài khuôn mặt.</p>
-            </li>
-
-            <li>
-                <h2>Tóc xoăn sóng</h2>
-                <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df" width="600">
-                <p>Tóc xoăn giúp tăng độ phồng hai bên.</p>
-            </li>
-
-            <li>
-                <h2>Tóc layer ngang vai</h2>
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" width="600">
-                <p>Tóc layer tạo sự mềm mại cho khuôn mặt.</p>
-            </li>
-
-            <li>
-                <h2>Tóc lob uốn chữ C</h2>
-                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
-                <p>Giúp khuôn mặt thanh thoát hơn.</p>
-            </li>
-
-        </ol>
-
-        <hr>
-
-        <h1 class="entry-title">Phụ kiện cho mặt dài</h1>
-
-        <div class="glasses-container">
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" width="250">
-                <h3>Kính bản lớn</h3>
-                <p>Kính bản lớn giúp khuôn mặt trông cân đối.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1511497584788-876760111969" width="250">
-                <h3>Kính vuông</h3>
-                <p>Giúp tăng chiều rộng khuôn mặt.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11" width="250">
-                <h3>Kính chữ nhật</h3>
-                <p>Tạo điểm nhấn mạnh mẽ.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136" width="250">
-                <h3>Kính oversize</h3>
-                <p>Giúp khuôn mặt bớt dài.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1511497584788-876760111969" width="250">
-                <h3>Kính mắt mèo</h3>
-                <p>Tạo phong cách thời trang.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" width="250">
-                <h3>Kính hình học</h3>
-                <p>Tăng sự cá tính.</p>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            <a href="/" class="back_home_button">Back to Home</a>
-        </div>
-
+{% block cards %}
+    <div class="section-card">
+        <h2>Tóc bob ngang vai</h2>
+        <p>Kiểu tóc này giúp khuôn mặt trông đầy đặn và cân đối hơn về tỉ lệ.</p>
+        <a href="?view=detail#section1" class="btn-detail">Chi tiết</a>
     </div>
+    <div class="section-card">
+        <h2>Tóc mái thưa</h2>
+        <p>Lựa chọn tuyệt vời để che bớt phần trán cao, giúp giảm chiều dài khuôn mặt hiệu quả.</p>
+        <a href="?view=detail#section2" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Kính bản lớn & Oversize</h2>
+        <p>Giúp "chia cắt" chiều dài của khuôn mặt, mang lại sự hài hòa cho tổng thể.</p>
+        <a href="?view=detail#section_glasses" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Kính vuông / Chữ nhật</h2>
+        <p>Tạo góc cạnh và tăng chiều rộng cho gương mặt dài thêm phần cá tính.</p>
+        <a href="?view=detail#section_glasses" class="btn-detail">Chi tiết</a>
+    </div>
+{% endblock %}
 
-</body>
-
-</html>
+{% block detail_content %}
+    <h1 class="entry-title">Kiểu khuôn mặt dài</h1>
+    <p class="contrast">
+        Khuôn mặt dài (Oblong face) là kiểu khuôn mặt có chiều dài lớn hơn chiều rộng rõ rệt.
+    </p>
+    <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Oblong_face_shape.svg/512px-Oblong_face_shape.svg.png" width="400">
+    </div>
+    <hr>
+    <h1>Kiểu tóc & Phụ kiện</h1>
+    <ol>
+        <li id="section1">
+            <h2>Tóc bob ngang vai</h2>
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" width="600">
+        </li>
+        <li id="section2">
+            <h2>Tóc mái thưa</h2>
+            <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe" width="600">
+        </li>
+        <li id="section3">
+            <h2>Tóc xoăn sóng</h2>
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df" width="600">
+        </li>
+    </ol>
+    <div id="section_glasses">
+        <h2>Phụ kiện cho mặt dài</h2>
+        <p>Kính bản lớn, kính vuông và kính oversize là lựa chọn tốt nhất.</p>
+    </div>
+{% endblock %}

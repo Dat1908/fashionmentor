@@ -1,92 +1,93 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base_result.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pear Body Shape</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/light_summer.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</head>
+{% block title %}Pear Body Shape{% endblock %}
 
-<body>
+{% block header %}Dáng quả lê (Pear Body Shape){% endblock %}
 
-    <h1>Pear Body Shape</h1>
+{% block hero_img %}https://upload.wikimedia.org/wikipedia/commons/4/49/Female_body_shapes.png{% endblock %}
 
-    <div class="site-container">
+{% block summary_text %}
+    Dáng quả lê có hông và đùi lớn hơn vai và ngực, tạo nên đường cong nữ tính nổi bật với vòng eo rõ rệt. 
+    Mục tiêu phối đồ là thu hút sự chú ý lên phần thân trên để cân bằng tỉ lệ cơ thể.
+{% endblock %}
 
-        <header class="entry-header">
-            <h1 class="entry-title">Dáng quả lê</h1>
-
-            <p class="contrast">
-                Dáng quả lê là dáng người có phần hông và đùi lớn hơn phần vai và
-                vòng ngực. Phần eo thường nhỏ và rõ ràng tạo nên đường cong nữ tính.
-            </p>
-
-            <p class="contrast">
-                Người có dáng quả lê thường có thân trên khá nhỏ gọn,
-                trong khi phần hông và đùi là phần rộng nhất của cơ thể.
-            </p>
-
-        </header>
-
-        <div class="entry-content">
-
-            <p align="center">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Female_body_shapes.png" width="500">
-            </p>
-
-            <hr>
-
-            <h1>Trang phục phù hợp</h1>
-
-            <ol>
-
-                <li>
-                    <h2>Áo cổ chữ V</h2>
-                    <p>Giúp mở rộng phần vai và thu hút ánh nhìn lên phía trên.</p>
-                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" width="700">
-                </li>
-
-                <li>
-                    <h2>Áo có chi tiết ở vai</h2>
-                    <p>Tay phồng hoặc cầu vai giúp cân bằng cơ thể.</p>
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="700">
-                </li>
-
-                <li>
-                    <h2>Chân váy chữ A</h2>
-                    <p>Giúp che phần hông rộng.</p>
-                    <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="700">
-                </li>
-
-                <li>
-                    <h2>Quần tối màu</h2>
-                    <p>Màu tối giúp phần thân dưới trông gọn hơn.</p>
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" width="700">
-                </li>
-
-                <li>
-                    <h2>Áo khoác blazer</h2>
-                    <p>Tạo cấu trúc cho phần vai.</p>
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" width="700">
-                </li>
-
-            </ol>
-
-            <h1>Những điều nên tránh</h1>
-
-            <p>
-                Tránh quần bó sát, váy quá ôm ở đùi hoặc trang trí ở hông.
-            </p>
-
-            <div class='footer'>
-                <a href="/" class="back_home_button">Back to Home</a>
-            </div>
-
-        </div>
+{% block cards %}
+    <div class="section-card">
+        <h2>Áo cổ chữ V</h2>
+        <p>Giúp mở rộng phần vai và làm phần thân trên trông cân đối hơn.</p>
+        <a href="?view=detail#section1" class="btn-detail">Chi tiết</a>
     </div>
+    <div class="section-card">
+        <h2>Áo vai bồng</h2>
+        <p>Tạo cấu trúc và sự đầy đặn cho bờ vai thon gọn.</p>
+        <a href="?view=detail#section2" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Chân váy chữ A</h2>
+        <p>Giúp che khéo phần hông rộng một cách duyên dáng nhất.</p>
+        <a href="?view=detail#section3" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Áo khoác blazer</h2>
+        <p>Cung cấp cấu trúc vai mạnh mẽ để cân bằng với hông đầy đặn.</p>
+        <a href="?view=detail#section4" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Lưu ý cần tránh</h2>
+        <p>Hạn chế quần quá bó sát hoặc họa tiết lớn ở vùng hông.</p>
+        <a href="?view=detail#section-avoid" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Phụ kiện gợi ý</h2>
+        <p>Dây chuyền bản lớn hoặc khăn quàng cổ thu hút ánh nhìn lên trên.</p>
+        <a href="?view=detail#section-acc" class="btn-detail">Chi tiết</a>
+    </div>
+{% endblock %}
 
-</body>
+{% block detail_content %}
+    <h1 class="entry-title">Tư vấn chi tiết: Dáng quả lê</h1>
+    <p class="contrast">
+        Đặc điểm: Hông và đùi là phần rộng nhất của cơ thể. Thân dưới lớn hơn thân trên rõ rệt.
+    </p>
+    <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Female_body_shapes.png" width="500">
+    </div>
+    
+    <hr>
+    
+    <h1>Phối đồ thông minh</h1>
+    <ol>
+        <li id="section1">
+            <h2>Áo cổ chữ V</h2>
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" width="600">
+            <p>Thu hút ánh nhìn lên phần khuôn mặt và cổ.</p>
+        </li>
+        <li id="section2">
+            <h2>Áo có chi tiết ở vai</h2>
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
+            <p>Tay phồng hoặc cầu vai nhẹ giúp thân hình cân đối hơn.</p>
+        </li>
+        <li id="section3">
+            <h2>Chân váy chữ A</h2>
+            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="600">
+            <p>Che đi phần đùi và hông một cách khéo léo.</p>
+        </li>
+        <li id="section4">
+            <h2>Áo khoác blazer</h2>
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" width="600">
+            <p>Khoác hờ hoặc mặc vừa vặn đều giúp bạn trông thanh lịch hơn.</p>
+        </li>
+    </ol>
+    
+    <hr>
+    
+    <h1 id="section-avoid">Những điều nên tránh</h1>
+    <p class="morning-breeze">
+        1. Tránh thắt lưng trễ ở hông.<br>
+        2. Hạn chế quần sáng màu hoặc quần có nhiều túi ở đùi.<br>
+        3. Không nên mặc áo dài quá hông vì sẽ tạo điểm nhấn sai chỗ.
+    </p>
 
-</html>
+    <h1 id="section-acc">Trang sức & Phụ kiện</h1>
+    <p>Dùng khăn quàng, dây chuyền nổi bật hoặc các kiểu áo có cổ rộng để đánh lừa thị giác.</p>
+{% endblock %}

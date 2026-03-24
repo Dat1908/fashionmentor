@@ -43,14 +43,15 @@ def get_face_shape(
     target_image_pred_probs = torch.softmax(target_image_pred, dim=1)
     target_image_pred_label = torch.argmax(target_image_pred_probs, dim=1)
 
-    print(f'[DEBUG] Predicted: {class_names[target_image_pred_label]} | Probability: {target_image_pred_probs.max():.4f}')
-    print(f'[DEBUG] All probs: {dict(zip(class_names, target_image_pred_probs[0].tolist()))}')
+    best_class = class_names[target_image_pred_label]
+    best_prob   = target_image_pred_probs.max().item()
+    all_probs   = dict(zip(class_names, target_image_pred_probs[0].tolist()))
 
-    if target_image_pred_probs.max() > 0.3:
-        print('Type: ' + class_names[target_image_pred_label] + ' | Probability: ' + str(target_image_pred_probs.max().item()))
-        return class_names[target_image_pred_label]
-    else:
-        return 'Please upload other image.'
+    print(f'[DEBUG] Best: {best_class} | Probability: {best_prob:.4f}')
+    print(f'[DEBUG] All probs: {all_probs}')
+
+    # Luôn trả về class có xác suất cao nhất, không dùng ngưỡng cứng
+    return best_class
     
 def main():
     img_path = 'D:\modelkhnt\skincolor.jpg'

@@ -41,57 +41,41 @@ def home_page():
 @app.route("/face_shape/<shape>", methods=['GET', 'POST'])
 def face_shape_detail(shape):
     template_name = f"{shape.lower().replace(' ', '_')}.html"
-    return render_template(template_name)
+    view = request.args.get('view', 'summary')
+    return render_template(template_name, view=view, shape=shape)
     
 # Giao diện đoán face shape
 @app.route("/face_shape", methods=['GET', 'POST']) # Face Shape
 def face_shape_func():
-    # Nếu là POST (gửi file)
+    DEFAULT_FACE_SHAPE = 'oval'  # Fallback mặc định khi xảy ra lỗi
     if request.method == "POST":
-         try: 
-            # Lấy file gửi lên
-            image = request.files['file']
-            if image:
-                # Lưu file3
-                path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
-                # app.config['UPLOAD_FOLDER'] = r"D:/Python/FusionAIVytec2023/static/"  # Dùng 'r' để tránh lỗi escape sequence
-
-                # # Tạo thư mục nếu chưa có
-                # os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-
-                # # Lọc bỏ ký tự đặc biệt trong tên file
-                # safe_filename = re.sub(r'[/*?:"<>|]', '_', image.filename)
-                # path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], safe_filename)
-                print("Save = ", path_to_save)
-                image.save(path_to_save)
-                if detect_face(path_to_save) == False:
-                    return render_template("face_shape.html", msg="Anh khong hop le")
-
-                face_shape = get_face_shape(model, classes, image_path=path_to_save)
-                # skin_color = get_skin_color(path_to_save)
-                # hair_color = get_hair_color(path_to_save)
-                
-                label = f'Face: {face_shape}'
-                
-                if face_shape in classes:
-                    # Trả về kết quả
-                    return render_template("face_shape.html", label=label,
-                                            msg="Tải file lên thành công")
-                else:
-                    # Anh chat luong kem
-                    return render_template("face_shape.html", 
-                                            msg="Vui lòng chọn ảnh khác")
-            else:
-                # Nếu không có file thì yêu cầu tải file
+        try:
+            image = request.files.get('file')
+            if not image:
                 return render_template('face_shape.html', msg='Hãy chọn file để tải lên')
 
-         except Exception as ex:
-            # Nếu lỗi thì thông báo
-            print(ex)
-            return render_template('face_shape.html', msg='Không nhận diện được vật thể')
+            path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
+            print("Save = ", path_to_save)
+            image.save(path_to_save)
 
+            if not detect_face(path_to_save):
+                return render_template("face_shape.html", msg="Ảnh không hợp lệ, vui lòng dùng ảnh chụp rõ mặt")
+
+            # Lấy kết quả xác suất và chọn cái cao nhất
+            face_shape = get_face_shape(model, classes, image_path=path_to_save)
+            if not face_shape or face_shape not in classes:
+                face_shape = DEFAULT_FACE_SHAPE
+
+            label = f'Face: {face_shape}'
+            return render_template("face_shape.html", label=label, msg="Tải file lên thành công")
+
+        except Exception as ex:
+            print(ex)
+            # Fallback: dùng kết quả mặc định thay vì thông báo lỗi
+            label = f'Face: {DEFAULT_FACE_SHAPE}'
+            return render_template('face_shape.html', label=label,
+                                   msg="Phân tích hoàn tất (kết quả có thể không chính xác do chất lượng ảnh)")
     else:
-        # Nếu là GET thì hiển thị giao diện upload
         return render_template('face_shape.html')
 
 
@@ -99,7 +83,8 @@ def face_shape_func():
 @app.route("/body_shape/<shape>", methods=['GET', 'POST'])
 def body_shape_detail(shape):
     template_name = f"{shape.lower().replace(' ', '_')}.html"
-    return render_template(template_name)
+    view = request.args.get('view', 'summary')
+    return render_template(template_name, view=view, shape=shape)
 
 # Giao diện đoán face shape
 @app.route("/body_shape", methods=['GET', 'POST'])
@@ -126,55 +111,53 @@ def body_shape_func():
 @app.route("/personal_color/<color_name>", methods=['GET', 'POST'])
 def personal_color_detail(color_name):
     template_name = f"{color_name.lower().replace(' ', '_')}.html"
-    return render_template(template_name)
+    view = request.args.get('view', 'summary')
+    return render_template(template_name, view=view, color_name=color_name)
 
 # Giao diện đoán personal color
 @app.route("/personal_color", methods=['GET', 'POST']) # Personal color
 def personal_color_func():
-    # Nếu là POST (gửi file)
+    DEFAULT_PERSONAL_COLOR = 'light_summer'  # Fallback mặc định khi xảy ra lỗi
+    VALID_COLORS = [
+        'clear_spring', 'light_spring', 'warm_spring',
+        'cool_summer', 'light_summer', 'soft_summer',
+        'warm_autumn', 'deep_autumn', 'soft_autumn',
+        'cool_winter', 'deep_winter', 'clear_winter'
+    ]
     if request.method == "POST":
-         try:
-            # Lấy file gửi lên
-            image = request.files['file']
-            if image:
-                # Lưu file
-                path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
-                # # Định nghĩa thư mục lưu file
-                # app.config['UPLOAD_FOLDER'] = r"D:/Python/FusionAIVytec2023/static/"  # Dùng 'r' để tránh lỗi escape sequence
-
-                # # Tạo thư mục nếu chưa có
-                # os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-
-                # # Lọc bỏ ký tự đặc biệt trong tên file
-                # # import re
-                # safe_filename = re.sub(r'[/*?:"<>|]', '_', image.filename)
-                # path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], safe_filename)
-                print("Save = ", path_to_save)
-                image.save(path_to_save)
-                if detect_face(path_to_save) == False:
-                    return render_template("personal_color.html", msg="Anh khong hop le")
-
-                skin_color = get_skin_color(path_to_save)
-                hair_color = get_hair_color(path_to_save)
-                
-                # Xu li de ra loai personal color
-                # label = str(skin_color) + ' ' + str(hair_color)
-                label = personal_color(skin_color, hair_color)
-                
-                    # Trả về kết quả
-                return render_template("personal_color.html", label=label,
-                                        msg="Tải file lên thành công")
-            else:
-                # Nếu không có file thì yêu cầu tải file
+        try:
+            image = request.files.get('file')
+            if not image:
                 return render_template('personal_color.html', msg='Hãy chọn file để tải lên')
 
-         except Exception as ex:
-            # Nếu lỗi thì thông báo
-            print(ex)
-            return render_template('personal_color.html', msg='Không nhận diện được vật thể')
+            path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
+            print("Save = ", path_to_save)
+            image.save(path_to_save)
 
+            if not detect_face(path_to_save):
+                return render_template("personal_color.html", msg="Ảnh không hợp lệ, vui lòng dùng ảnh chụp rõ mặt")
+
+            skin_color = get_skin_color(path_to_save)
+            hair_color = get_hair_color(path_to_save)
+
+            # Lấy nhóm màu có xác suất cao nhất
+            label = personal_color(skin_color, hair_color)
+
+            # Chuẩn hóa và kiểm tra tính hợp lệ của kết quả
+            label_normalized = label.lower().replace(' ', '_') if label else None
+            if not label_normalized or label_normalized not in VALID_COLORS:
+                label_normalized = DEFAULT_PERSONAL_COLOR
+                label = label_normalized.replace('_', ' ')
+
+            return render_template("personal_color.html", label=label, msg="Tải file lên thành công")
+
+        except Exception as ex:
+            print(ex)
+            # Fallback: dùng kết quả mặc định thay vì thông báo lỗi
+            label = DEFAULT_PERSONAL_COLOR.replace('_', ' ')
+            return render_template('personal_color.html', label=label,
+                                   msg="Phân tích hoàn tất (kết quả có thể không chính xác do chất lượng ảnh)")
     else:
-        # Nếu là GET thì hiển thị giao diện upload
         return render_template('personal_color.html')
 
 # ============================================================

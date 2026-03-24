@@ -1,122 +1,75 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base_result.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soft Summer</title>
-    <link rel="stylesheet" type="text/css" href="..\static\css\light_summer.css">
-    </style>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</head>
+{% block title %}Personal Color: {{ color_name | title }}{% endblock %}
 
-<body>
-    <h1>Soft Summer</h1>
+{% block header %}Nhóm màu {{ color_name | replace('_', ' ') | title }}{% endblock %}
 
-    </head>
+{% block hero_img %}https://images.unsplash.com/photo-1523450001312-daa4e2e12444?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80{% endblock %}
 
-    <body
-        class="post-template-default single single-post postid-2755 single-format-standard header-image content-sidebar-sidebar genesis-breadcrumbs-hidden override"
-        itemscope itemtype="https://schema.org/WebPage">
-        <div class="site-container">
-            <header class="site-header" itemscope itemtype="https://schema.org/WPHeader">
-                <div class="wrap">
-                    <div class="title-area">
-                        <p class="site-title" itemprop="headline">
-                    </div>
-                    <div class="widget-area header-widget-area">
-                    </div>
-                </div>
-            </header>
-            <div class="site-inner">
-                <div class="content-sidebar-wrap">
-                    <main class="content">
-                        <article
-                            class="post-2403 post type-post status-publish format-standard has-post-thumbnail category-color-theory tag-blonde tag-color-me-beautiful tag-colour tag-cool tag-cool-delicate tag-cool-summer tag-fair-skin tag-light-summer tag-rosy tag-soft-summer tag-summer tag-true-summer entry override"
-                            aria-label="Best &#038; Worst Colors for Summer, Seasonal Color Analysis" itemscope
-                            itemtype="https://schema.org/CreativeWork">
-                            <header class="entry-header">
-                                <h1 class="entry-title" itemprop="headline">Màu sắc tốt nhất và tồi nhất cho mùa hè,
-                                    Phân tích màu sắc theo mùa</h1>
-                                <p class="contrast">Độ tương phản thấp giữa da, tóc và mắt. Không có vùng tối.</p>
-                            </header>
-                            <div class="entry-content" itemprop="text">
-                                <p align="center"><img decoding="async" fetchpriority="high"
-                                        class="aligncenter wp-image-2426"
-                                        src="https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/cool-delicate-summer-chart.jpg"
-                                        width="600" height="600" border="1"
-                                        srcset="https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/cool-delicate-summer-chart.jpg 800w, https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/cool-delicate-summer-chart-150x150.jpg 150w, https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/cool-delicate-summer-chart-455x455.jpg 455w, https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/cool-delicate-summer-chart-768x768.jpg 768w"
-                                        sizes="(max-width: 600px) 100vw, 600px" /></p>
-                                <p class="morning-breeze">Soft Summer có một phẩm chất tinh thần trong làn da phức tạp
-                                    của họ. Họ có độ
-                                    tương phản rất thấp và có thể mặc những màu nhạt làm mờ đi người khác.</p>
-                                <div align="center">
-                                    <p><img decoding="async" class="aligncenter wp-image-2414 size-full"
-                                            src="https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/light-summer.jpg"
-                                            width="800" height="1155" border="1"
-                                            srcset="https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/light-summer.jpg 800w, https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/light-summer-315x455.jpg 315w, https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/light-summer-768x1109.jpg 768w, https://8886be.p3cdn1.secureserver.net/wp-content/uploads/2017/02/light-summer-709x1024.jpg 709w"
-                                            sizes="(max-width: 800px) 100vw, 800px" /></p>
-                                </div>
+{% block summary_text %}
+    {{ color_name | replace('_', ' ') | title }} là nhóm màu đặc biệt giúp tôn vinh làn da và thần thái của bạn. 
+    Các sắc độ màu sắc được tuyển chọn kỹ lưỡng để hòa quyện với sắc tố tự nhiên, giúp bạn rạng rỡ và tự tin hơn mỗi ngày.
+{% endblock %}
 
+{% block cards %}
+    <div class="section-card">
+        <h2>Bảng màu chủ đạo</h2>
+        <p>Các tone màu được thiết kế để hài hòa hoàn hảo với sắc tố tự nhiên của bạn.</p>
+        <a href="?view=detail#section1" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Phong cách phối đồ</h2>
+        <p>Gợi ý chất liệu và kiểu dáng trang phục phù hợp nhất với nhóm màu của bạn.</p>
+        <a href="?view=detail#section2" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Màu tóc gợi ý</h2>
+        <p>Chọn màu tóc giúp tôn lên làn da và tạo điểm nhấn sang trọng cho khuôn mặt.</p>
+        <a href="?view=detail#section2" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Bí quyết trang điểm</h2>
+        <p>Tone màu son và má hồng mang lại vẻ rạng rỡ, thanh thoát và tự nhiên nhất.</p>
+        <a href="?view=detail#section3" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Màu sắc cần tránh</h2>
+        <p>Những tone màu có thể làm làn da xỉn màu hoặc làm gương mặt trông mệt mỏi.</p>
+        <a href="?view=detail#section-avoid" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Phụ kiện tinh tế</h2>
+        <p>Lựa chọn trang sức kim loại và kiểu dáng phụ kiện hài hòa với tổng thể.</p>
+        <a href="?view=detail#section-acc" class="btn-detail">Chi tiết</a>
+    </div>
+{% endblock %}
 
+{% block detail_content %}
+    <h1 class="entry-title">{{ color_name | replace('_', ' ') | title }}: Tư vấn chi tiết</h1>
+    <p class="contrast">
+        Dựa trên sắc độ của da, mắt và tóc, nhóm màu này tạo nên vẻ đẹp độc bản cho riêng bạn.
+    </p>
+    <div style="text-align: center;" id="section1">
+        <img src="https://images.unsplash.com/photo-1523450001312-daa4e2e12444?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" width="600">
+    </div>
+    <hr>
+    <div id="section2">
+        <h1>Phối đồ & Tóc chuyên nghiệp</h1>
+        <p>Chọn đúng trang phục giúp bạn nổi bật trong mọi hoàn cảnh từ công sở tới dạo phố.</p>
+        <img src="https://images.unsplash.com/photo-1490481658327-47b48a3c3175?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" width="600">
+    </div>
+    <hr>
+    <div id="section3">
+        <h1>Bí kíp Trang điểm</h1>
+        <p>Tone màu nhẹ nhàng là bạn đồng hành tốt nhất để gương mặt rạng ngời sức sống.</p>
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" width="600">
+    </div>
 
-                                <p class="morning-breeze">Nhắc đến mùa hè thì nhiều người cho rằng màu chủ đạo sẽ là
-                                    các tone màu rực rỡ, tuy nhiên thực tế thì đây là mùa của các tone màu lạnh, và vì
-                                    thế nếu thuộc nhóm màu Soft Summer thì bạn sẽ có undertone lạnh hoặc trung tính.
-                                    Các đường nét trên gương mặt khá nhỏ và nhạt, không hợp với các tone màu trầm, chỉ
-                                    hợp với màu sáng như tone pastel hoặc các màu sắc ngọt ngào. Soft Summer cũng hợp
-                                    với tóc sáng màu nhưng sẽ thiên về màu vàng hơn vàng mật ong, ash green, đặc biệt là
-                                    các màu tone khói.</p>
+    <h1 id="section-avoid">Những điều nên tránh</h1>
+    <p class="morning-breeze">
+        Lưu ý hạn chế các màu quá tương phản hoặc quá rực rỡ nếu chúng không nằm trong bảng màu gợi ý, sẽ dễ gây mất cân đối.
+    </p>
 
-                                <p class="morning-breeze">Những màu sắc này vừa nhẹ nhàng vừa sảng khoái - giống như
-                                    một làn gió buổi sáng sớm ở bãi biển.</p>
-
-
-                                <img decoding="async" loading="lazy" class="size-full wp-image-1301454"
-                                    src="https://i0.wp.com/beaudy.vn/wp-content/uploads/2023/09/personal-color-light-3-73cf3b6a.jpg?resize=749%2C421&amp;ssl=1"
-                                    alt="personal color light 3 73cf3b6a" width="689" height="387"
-                                    title="Personal Color - Cách phối đồ và trang điểm cho nhóm màu Summer 3">
-
-                                <p class="morning-breeze">Tủ đồ gợi ý cho nhóm soft summer là các tone màu thiên
-                                    pastel, điển hình nhất là tím
-                                    pastel, hồng pastel, xanh dương nhạt, còn màu trung tính sẽ là xám đậm một chút.
-                                    Ngoài
-                                    ra nhóm này sẽ hợp với tóc thiên ánh vàng, những màu tóc tẩy vàng sáng sẽ rất hợp,
-                                    ngoài
-                                    ra còn có màu xám hoặc nâu sáng. Khi phối đồ bạn nên chọn các màu có cùng tone để
-                                    phối,
-                                    hoặc là đều có ánh tím xanh hoặ là đều có ánh hồng tím chẳng hạn.</p>
-
-                                <img decoding="async" loading="lazy" class="size-full wp-image-1301453"
-                                    src="https://i0.wp.com/beaudy.vn/wp-content/uploads/2023/09/personal-color-light-2-1-df03ea36.jpg?resize=749%2C589&amp;ssl=1"
-                                    alt="personal color light 2 1 df03ea36" width="689" height="542"
-                                    title="Personal Color - Cách phối đồ và trang điểm cho nhóm màu Summer 4">
-
-                                <p class="morning-breeze">Nói về trang điểm, thì màu son phù hợp sẽ là hồng nude, hồng
-                                    pha tím, hồng cam san hô
-                                    ít ánh cảm. Màu má sẽ là tone hồng san hô tươi sáng. Cùng với đó thì một số màu tone
-                                    đỏ hồng cũng rất đáng để thử nếu bạn thuộc nhóm soft summer.</p>
-
-                                <img decoding="async" loading="lazy" class="size-full wp-image-1301452"
-                                    src="https://i0.wp.com/beaudy.vn/wp-content/uploads/2023/09/personal-color-light-1-1-eeebf0ab.jpg?resize=749%2C589&amp;ssl=1"
-                                    alt="personal color light 1 1 eeebf0ab" width="689" height="542"
-                                    title="Personal Color - Cách phối đồ và trang điểm cho nhóm màu Summer 5">
-
-                                <p style="text-align: center;">
-                                    &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;
-                                </p>
-
-                                <div class='footer'>
-                                    <a href="/" class="back_home_button">Back to Home</a>
-
-                                </div>
-                            </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-
-    </body>
-
-</html>
+    <h1 id="section-acc">Trang sức & Phụ kiện</h1>
+    <p>Chọn các loại trang sức bạc, bạch kim hoặc vàng ấm tùy theo undertone cụ thể của nhóm màu.</p>
+{% endblock %}

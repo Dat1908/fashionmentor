@@ -13,7 +13,23 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
-    overflow-x: hidden; /* Changed from 'scroll' to 'hidden' to prevent unnecessary scrollbars */
+    overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Style the header with transparency and uppercase text */
@@ -25,6 +41,7 @@ body {
     color: white;
     text-align: center;
     padding: 30px;
+    animation: slideDown 0.6s ease-out forwards;
 }
 
 
@@ -49,6 +66,7 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
     text-align: center;
     padding: 40px;
+    animation: slideUp 0.6s ease-out 0.2s backwards;
 }
 
 /* Style the upload button with a shadow for depth */
@@ -61,6 +79,13 @@ body {
     border-radius: 5px;
     box-shadow: 6px 8px 18px -5px rgba(0, 0, 0, 0.38);
     cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.upload_button:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 12px 25px -5px rgba(0, 0, 0, 0.5);
+    background-color: #fff14d;
 }
 
 /* Style hints under the upload button */
@@ -74,6 +99,7 @@ body {
 .result_part {
     text-align: center;
     padding: 40px;
+    animation: fadeIn 0.8s ease-out 0.4s backwards;
 }
 
 /* Bold and larger font for result titles */
@@ -104,18 +130,20 @@ body {
 .back_home_button {
     display: inline-block;
     padding: 10px 15px;
-    margin-top: 5px; /* Adjusted for consistency */
+    margin-top: 5px;
     background-color: #007bff; /* Blue background for contrast */
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth transition for hover effect */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* Hover effect for back home button */
 .back_home_button:hover {
     background-color: #0056b3; /* Darker shade of blue on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
 }
 
 body {
@@ -177,15 +205,16 @@ color: white; /* The text color */
 text-decoration: none; /* Removes the underline from links */
 border-radius: 5px; /* Rounds the corners of the button */
 font-weight: bold; /* Makes the text bold */
-transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 form button:hover {
 background-color: #392f05; /* Color when the mouse hovers over the button */
 text-decoration: none; /* Ensures the underline does not re-appear on hover */
 color: white; /* Text color remains white on hover */
-
+transform: translateY(-2px);
+box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .back_home_button:hover {
@@ -227,6 +256,13 @@ color: white; /* Text color remains white on hover */
     -moz-box-shadow: 6px 8px 18px -5px rgba(0, 0, 0, 0.38);
     box-shadow: 6px 8px 18px -5px rgba(0, 0, 0, 0.38);
     cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.upload_button:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 12px 25px -5px rgba(0, 0, 0, 0.5);
+    background-color: #a78631;
 }
 
 .upload_hint {

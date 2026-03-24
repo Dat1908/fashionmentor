@@ -1,148 +1,65 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base_result.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Square Face Shape</title>
-    <link rel="stylesheet" href="../static/css/light_summer.css">
-</head>
+{% block title %}Square Face Shape{% endblock %}
 
-<body>
+{% block header %}Khuôn mặt chữ điền (Square Face Shape){% endblock %}
 
-    <h1>Square Face Shape</h1>
+{% block hero_img %}https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Square_face_shape.svg/512px-Square_face_shape.svg.png{% endblock %}
 
-    <div class="site-container">
+{% block summary_text %}
+    Khuôn mặt chữ điền có trán rộng, xương hàm rõ ràng và góc cạnh. 
+    Để giảm bớt sự cứng nhắc của các đường nét, hãy chọn kiểu tóc và kính giúp làm mềm các góc cạnh của khuôn mặt.
+{% endblock %}
 
-        <h1 class="entry-title">Kiểu khuôn mặt chữ điền</h1>
-
-        <p class="contrast">
-            Khuôn mặt chữ điền là kiểu khuôn mặt có trán rộng,
-            xương hàm rõ ràng và góc cạnh. Chiều rộng của trán,
-            gò má và hàm thường gần bằng nhau.
-        </p>
-
-        <p class="contrast">
-            Đặc điểm nổi bật của khuôn mặt chữ điền là phần hàm
-            rất rõ ràng và vuông vức. Điều này tạo cảm giác
-            mạnh mẽ và cá tính.
-        </p>
-
-        <p class="contrast">
-            Tuy nhiên nếu không chọn kiểu tóc phù hợp,
-            khuôn mặt có thể trông khá cứng và góc cạnh.
-            Vì vậy nên chọn kiểu tóc giúp làm mềm
-            các đường nét khuôn mặt.
-        </p>
-
-        <p align="center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Square_face_shape.svg/512px-Square_face_shape.svg.png"
-                width="400">
-        </p>
-
-        <hr>
-
-        <h1 class="entry-title">Kiểu tóc phù hợp mặt chữ điền</h1>
-
-        <p>
-            Các kiểu tóc uốn xoăn, tóc layer hoặc tóc có độ phồng
-            thường giúp làm mềm các góc cạnh của khuôn mặt chữ điền.
-        </p>
-
-        <ol>
-
-            <li>
-                <h2>Tóc xoăn sóng</h2>
-                <p>
-                    Tóc xoăn sóng giúp khuôn mặt trông mềm mại và nữ tính hơn.
-                </p>
-                <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc dài layer</h2>
-                <p>
-                    Tóc layer giúp tạo chuyển động và giảm cảm giác góc cạnh.
-                </p>
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc bob uốn nhẹ</h2>
-                <p>
-                    Tóc bob uốn nhẹ giúp làm mềm phần xương hàm.
-                </p>
-                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc lob ngang vai</h2>
-                <p>
-                    Tóc lob mang lại vẻ hiện đại và thanh lịch.
-                </p>
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc mái bay</h2>
-                <p>
-                    Mái bay giúp giảm cảm giác trán quá rộng.
-                </p>
-                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="600">
-            </li>
-
-        </ol>
-
-        <hr>
-
-        <h1 class="entry-title">Phụ kiện cho mặt chữ điền</h1>
-
-        <div class="glasses-container">
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" width="250">
-                <h3>Kính tròn</h3>
-                <p>Kính tròn giúp làm mềm các góc cạnh.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1511497584788-876760111969" width="250">
-                <h3>Kính oval</h3>
-                <p>Tạo sự cân đối cho khuôn mặt.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11" width="250">
-                <h3>Kính mắt mèo</h3>
-                <p>Tạo phong cách thời trang.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136" width="250">
-                <h3>Kính gọng mỏng</h3>
-                <p>Giúp khuôn mặt thanh thoát.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1511497584788-876760111969" width="250">
-                <h3>Kính hình học</h3>
-                <p>Tạo điểm nhấn cá tính.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" width="250">
-                <h3>Kính oversize</h3>
-                <p>Tạo phong cách hiện đại.</p>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            <a href="/" class="back_home_button">Back to Home</a>
-        </div>
-
+{% block cards %}
+    <div class="section-card">
+        <h2>Tóc xoăn sóng</h2>
+        <p>Giúp khuôn mặt trông mềm mại, nữ tính và giảm bớt sự góc cạnh của xương hàm.</p>
+        <a href="?view=detail#section1" class="btn-detail">Chi tiết</a>
     </div>
+    <div class="section-card">
+        <h2>Tóc dài layer</h2>
+        <p>Tạo chuyển động tự nhiên cho mái tóc, giúp gương mặt thanh thoát hơn.</p>
+        <a href="?view=detail#section2" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Kính tròn & Oval</h2>
+        <p>Phụ kiện không thể thiếu để làm dịu đi các đường nét vuông vức của khuôn mặt.</p>
+        <a href="?view=detail#section_glasses" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Kính mắt mèo</h2>
+        <p>Tạo điểm nhấn thời trang và kéo dài khuôn mặt một cách tinh tế.</p>
+        <a href="?view=detail#section_glasses" class="btn-detail">Chi tiết</a>
+    </div>
+{% endblock %}
 
-</body>
-
-</html>
+{% block detail_content %}
+    <h1 class="entry-title">Kiểu khuôn mặt chữ điền</h1>
+    <p class="contrast">
+        Khuôn mặt chữ điền có trán rộng, xương hàm rõ ràng và góc cạnh.
+    </p>
+    <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Square_face_shape.svg/512px-Square_face_shape.svg.png" width="400">
+    </div>
+    <hr>
+    <h1>Kiểu tóc & Phụ kiện</h1>
+    <ol>
+        <li id="section1">
+            <h2>Tóc xoăn sóng</h2>
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df" width="600">
+        </li>
+        <li id="section2">
+            <h2>Tóc dài layer</h2>
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" width="600">
+        </li>
+        <li id="section3">
+            <h2>Tóc bob uốn nhẹ</h2>
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
+        </li>
+    </ol>
+    <div id="section_glasses">
+        <h2>Kính dành cho mặt vuông</h2>
+        <p>Kính tròn, oval và gọng mỏng giúp gương mặt hài hòa hơn.</p>
+    </div>
+{% endblock %}

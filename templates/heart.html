@@ -1,160 +1,65 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base_result.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Face</title>
-    <link rel="stylesheet" href="../static/css/light_summer.css">
-</head>
+{% block title %}Heart Face Shape{% endblock %}
 
-<body>
+{% block header %}Khuôn mặt hình tim (Heart Face Shape){% endblock %}
 
-    <h1>Heart Face Shape</h1>
+{% block hero_img %}https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Heart_face_shape.svg/512px-Heart_face_shape.svg.png{% endblock %}
 
-    <div class="site-container">
+{% block summary_text %}
+    Khuôn mặt hình tim có trán rộng, gò má cao và cằm nhỏ nhọn. 
+    Đây là kiểu mặt thanh tú và nữ tính, cần chọn kiểu tóc và kính giúp cân bằng giữa phần trán và cằm.
+{% endblock %}
 
-        <h1 class="entry-title">Kiểu khuôn mặt hình tim</h1>
-
-        <p class="contrast">
-            Khuôn mặt hình tim là kiểu khuôn mặt có phần trán rộng, gò má cao
-            và phần cằm nhỏ nhọn. Khi nhìn tổng thể, khuôn mặt có hình dạng
-            tương tự một trái tim. Đây là một trong những kiểu khuôn mặt
-            được đánh giá là khá thanh tú và nữ tính.
-        </p>
-
-        <p class="contrast">
-            Đặc điểm nổi bật của khuôn mặt hình tim là phần trán thường là
-            vùng rộng nhất của khuôn mặt. Từ trán xuống gò má và xuống cằm
-            khuôn mặt thu nhỏ dần tạo thành đường cong mềm mại.
-        </p>
-
-        <p class="contrast">
-            Những người có khuôn mặt hình tim thường có gò má rất đẹp và
-            đường nét khuôn mặt khá sắc sảo. Tuy nhiên vì phần trán rộng
-            và cằm nhọn nên đôi khi khuôn mặt có thể trông hơi mất cân đối.
-        </p>
-
-        <p align="center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Heart_face_shape.svg/512px-Heart_face_shape.svg.png"
-                width="400">
-        </p>
-
-        <hr>
-
-        <h1 class="entry-title">Kiểu tóc phù hợp mặt hình tim</h1>
-
-        <p>
-            Với khuôn mặt hình tim, mục tiêu chính của kiểu tóc là giúp
-            giảm bớt sự chú ý vào phần trán rộng và tạo độ cân bằng
-            cho phần cằm. Các kiểu tóc có độ phồng ở phần dưới khuôn mặt
-            hoặc có mái thường rất phù hợp.
-        </p>
-
-        <ol>
-
-            <li>
-                <h2>Tóc bob ngang cằm</h2>
-                <p>
-                    Kiểu tóc bob ngang cằm giúp tạo độ phồng ở phần dưới khuôn mặt
-                    và làm giảm sự chênh lệch giữa trán và cằm.
-                </p>
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc xoăn sóng nhẹ</h2>
-                <p>
-                    Những lọn tóc xoăn mềm mại giúp khuôn mặt trông nhẹ nhàng
-                    và nữ tính hơn.
-                </p>
-                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc mái bay</h2>
-                <p>
-                    Mái bay là kiểu mái giúp che bớt phần trán rộng và làm
-                    gương mặt trông hài hòa hơn.
-                </p>
-                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc dài layer</h2>
-                <p>
-                    Tóc layer giúp tạo độ phồng và chuyển động cho mái tóc,
-                    từ đó giúp cân bằng tỉ lệ khuôn mặt.
-                </p>
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" width="600">
-            </li>
-
-            <li>
-                <h2>Tóc lob uốn nhẹ</h2>
-                <p>
-                    Tóc lob ngang vai uốn nhẹ là kiểu tóc hiện đại,
-                    giúp khuôn mặt vừa thanh lịch vừa trẻ trung.
-                </p>
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" width="600">
-            </li>
-
-        </ol>
-
-        <hr>
-
-        <h1 class="entry-title">Phụ kiện cho mặt hình tim</h1>
-
-        <p>
-            Ngoài kiểu tóc, việc chọn kính phù hợp cũng giúp
-            khuôn mặt trông cân đối hơn.
-        </p>
-
-        <div class="glasses-container">
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c" width="250">
-                <h3>Kính tròn</h3>
-                <p>Kính tròn giúp làm mềm các đường nét góc cạnh.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1511497584788-876760111969" width="250">
-                <h3>Kính oval</h3>
-                <p>Kính oval giúp cân bằng phần trán rộng.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136" width="250">
-                <h3>Kính bán gọng</h3>
-                <p>Thiết kế nhẹ nhàng giúp khuôn mặt thanh thoát.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11" width="250">
-                <h3>Kính gọng mỏng</h3>
-                <p>Gọng mỏng giúp tạo vẻ thanh lịch.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1544717305-2782549b5136" width="250">
-                <h3>Kính mắt mèo</h3>
-                <p>Tạo phong cách sang trọng.</p>
-            </div>
-
-            <div class="glasses-item">
-                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11" width="250">
-                <h3>Kính hình học</h3>
-                <p>Giúp khuôn mặt thêm cá tính.</p>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            <a href="/" class="back_home_button">Back to Home</a>
-        </div>
-
+{% block cards %}
+    <div class="section-card">
+        <h2>Tóc bob ngang cằm</h2>
+        <p>Tạo độ phồng ở phần dưới khuôn mặt, giúp cân đối hóa phần cằm nhỏ.</p>
+        <a href="?view=detail#section1" class="btn-detail">Chi tiết</a>
     </div>
+    <div class="section-card">
+        <h2>Tóc mái bay</h2>
+        <p>Che bớt phần trán rộng, tạo sự hài hòa cho tổng thể gương mặt.</p>
+        <a href="?view=detail#section3" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Kính tròn & Oval</h2>
+        <p>Làm mềm các đường nét góc cạnh và cân bằng trán rộng.</p>
+        <a href="?view=detail#section_glasses" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Kính bán gọng</h2>
+        <p>Thiết kế thanh thoát, tinh tế giúp khuôn mặt thêm phần sang trọng.</p>
+        <a href="?view=detail#section_glasses" class="btn-detail">Chi tiết</a>
+    </div>
+{% endblock %}
 
-</body>
-
-</html>
+{% block detail_content %}
+    <h1 class="entry-title">Khuôn mặt hình tim</h1>
+    <p class="contrast">
+        Khuôn mặt hình tim có phần trán rộng, gò má cao và phần cằm nhỏ nhọn.
+    </p>
+    <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Heart_face_shape.svg/512px-Heart_face_shape.svg.png" width="400">
+    </div>
+    <hr>
+    <h1>Kiểu tóc & Phụ kiện</h1>
+    <ol>
+        <li id="section1">
+            <h2>Tóc bob ngang cằm</h2>
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" width="600">
+        </li>
+        <li id="section2">
+            <h2>Tóc xoăn sóng nhẹ</h2>
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
+        </li>
+        <li id="section3">
+            <h2>Tóc mái bay</h2>
+            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="600">
+        </li>
+    </ol>
+    <div id="section_glasses">
+        <h2>Kính phù hợp</h2>
+        <p>Kính tròn, Oval và Bán gọng là lựa chọn tốt nhất.</p>
+    </div>
+{% endblock %}

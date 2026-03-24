@@ -1,65 +1,70 @@
-<!DOCTYPE html>
-<html lang="vi">
+{% extends "base_result.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Strawberry Body Shape</title>
-    <link rel="stylesheet" href="../static/css/light_summer.css">
-</head>
+{% block title %}Strawberry Body Shape{% endblock %}
 
-<body>
+{% block header %}Dáng tam giác ngược (Strawberry Body Shape){% endblock %}
 
-    <h1>Strawberry Body Shape</h1>
+{% block hero_img %}https://upload.wikimedia.org/wikipedia/commons/4/49/Female_body_shapes.png{% endblock %}
 
-    <div class="site-container">
+{% block summary_text %}
+    Dáng tam giác ngược có phần vai rộng hơn hông. Người có dáng này thường có thân trên khá lớn và phần hông nhỏ.
+    Chìa khóa là tạo thêm độ rộng cho phần thân dưới để cân bằng với bờ vai rộng.
+{% endblock %}
 
-        <h1 class="entry-title">Dáng tam giác ngược</h1>
-
-        <p class="contrast">
-            Dáng tam giác ngược có phần vai rộng hơn hông.
-            Người có dáng này thường có thân trên khá lớn và phần hông nhỏ.
-        </p>
-
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Female_body_shapes.png" width="500">
-
-        <hr>
-
-        <h1>Trang phục phù hợp</h1>
-
-        <ol>
-
-            <li>
-                <h2>Váy chữ A</h2>
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" width="600">
-                <p>Tăng độ rộng phần hông.</p>
-            </li>
-
-            <li>
-                <h2>Quần ống rộng</h2>
-                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="600">
-                <p>Cân bằng vai rộng.</p>
-            </li>
-
-            <li>
-                <h2>Chân váy xếp ly</h2>
-                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
-                <p>Tạo độ phồng ở phần dưới.</p>
-            </li>
-
-            <li>
-                <h2>Áo đơn giản</h2>
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" width="600">
-                <p>Tránh chi tiết ở vai.</p>
-            </li>
-
-        </ol>
-
-        <div class='footer'>
-            <a href="/">Back to Home</a>
-        </div>
-
+{% block cards %}
+    <div class="section-card">
+        <h2>Váy chữ A</h2>
+        <p>Giúp tăng độ rộng phần hông, tạo nét nữ tính và cân bằng cơ thể.</p>
+        <a href="?view=detail#section1" class="btn-detail">Chi tiết</a>
     </div>
+    <div class="section-card">
+        <h2>Quần ống rộng</h2>
+        <p>Cực kỳ hiệu quả trong việc thu hút ánh nhìn xuống thân dưới.</p>
+        <a href="?view=detail#section2" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Chân váy xếp ly</h2>
+        <p>Tạo độ phồng tự nhiên ở phần dưới, giúp hông trông đầy đặn hơn.</p>
+        <a href="?view=detail#section3" class="btn-detail">Chi tiết</a>
+    </div>
+    <div class="section-card">
+        <h2>Áo đơn giản</h2>
+        <p>Tránh các chi tiết ở vai để phần thân trên trông thon gọn hơn.</p>
+        <a href="?view=detail#section4" class="btn-detail">Chi tiết</a>
+    </div>
+{% endblock %}
 
-</body>
-
-</html>
+{% block detail_content %}
+    <h1 class="entry-title">Dáng tam giác ngược</h1>
+    <p class="contrast">
+        Dáng tam giác ngược có phần vai rộng hơn hông.
+        Người có dáng này thường có thân trên khá lớn và phần hông nhỏ.
+    </p>
+    <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Female_body_shapes.png" width="500">
+    </div>
+    <hr>
+    <h1>Trang phục phù hợp</h1>
+    <ol>
+        <li id="section1">
+            <h2>Váy chữ A</h2>
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" width="600">
+            <p>Tăng độ rộng phần hông.</p>
+        </li>
+        <li id="section2">
+            <h2>Quần ống rộng</h2>
+            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91" width="600">
+            <p>Cân bằng vai rộng.</p>
+        </li>
+        <li id="section3">
+            <h2>Chân váy xếp ly</h2>
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" width="600">
+            <p>Tạo độ phồng ở phần dưới.</p>
+        </li>
+        <li id="section4">
+            <h2>Áo đơn giản</h2>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" width="600">
+            <p>Tránh chi tiết ở vai.</p>
+        </li>
+    </ol>
+{% endblock %}
