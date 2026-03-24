@@ -10,6 +10,7 @@ import torchvision
 from torchvision import transforms
 import cv2
 from timeit import default_timer
+from personal_color import personal_color  # single source of truth
 
 class HairSegmentModel(nn.Module):
     def __init__(self):
@@ -21,44 +22,7 @@ class HairSegmentModel(nn.Module):
         y = self.dl(x)['out']
         return y
 
-def personal_color(skin_rgb, hair_rgb):
-    """
-    Xác định nhóm màu cá nhân dựa trên khoảng cách Euclidean
-    từ (skin_rgb, hair_rgb) đến tâm của từng nhóm màu.
-    Luôn trả về nhóm gần nhất — không bao giờ trả về None.
-    """
-    # Tâm (centroid) của mỗi nhóm màu: (skin_R, skin_G, skin_B, hair_R, hair_G, hair_B)
-    CENTROIDS = {
-        "Warm Spring":  (243.852, 202.359, 180.464, 108.651,  83.833,  70.887),
-        "Light Spring": (243.986, 226.830, 215.576, 214.960, 204.645, 204.885),
-        "Clear Spring": (227.570, 174.053, 143.618,  35.910,  31.950,  38.027),
-        "Light Summer": (231.460, 184.660, 165.630, 158.000,  98.157,  81.982),
-        "Soft Summer":  (226.530, 206.212, 163.026,  92.924,  78.635,  72.345),
-        "Cool Summer":  (203.620, 152.978, 126.393,  17.667,  18.890,  19.287),
-        "Soft Autumn":  (222.086, 177.840, 145.870, 123.920,  90.707,  72.247),
-        "Deep Autumn":  (203.960, 147.296, 113.128,  44.397,  35.099,  26.589),
-        "Warm Autumn":  (179.868, 128.390, 100.100, 142.795,  91.614,  73.373),
-        "Deep Winter":  (226.107, 171.970, 144.297,  17.667,  18.890,  19.287),
-        "Clear Winter": (245.454, 207.065, 191.890, 110.542,  90.260,  77.610),
-        "Cool Winter":  (222.420, 146.424, 167.488,  54.000,  37.069,  34.116),
-    }
-
-    skin_r, skin_g, skin_b = skin_rgb
-    hair_r, hair_g, hair_b = hair_rgb
-    input_vec = (skin_r, skin_g, skin_b, hair_r, hair_g, hair_b)
-
-    best_color = "Light Summer"  # fallback an toàn
-    best_dist  = float('inf')
-
-    for color_name, centroid in CENTROIDS.items():
-        dist = math.sqrt(sum((a - b) ** 2 for a, b in zip(input_vec, centroid)))
-        print(f'[DEBUG] {color_name}: distance = {dist:.2f}')
-        if dist < best_dist:
-            best_dist  = dist
-            best_color = color_name
-
-    print(f'[DEBUG] Personal color result: {best_color} (dist={best_dist:.2f})')
-    return best_color
+# personal_color đã được import từ personal_color.py ở trên
 
 def detect_face(image_path):
     # Load the pre-trained Haar cascade file for face detection
@@ -95,7 +59,7 @@ def get_skin_color(image_path):
     b = int(hex_code[4:6], 16)
     return r, g, b
 
-def get_hair_mask(image_path, checkpoint_path="D:/hair_detect.pt"):
+def get_hair_mask(image_path, checkpoint_path="./weights/hair_detect.pt"):
     if isinstance(image_path, np.ndarray):
         img = Image.fromarray(image_path)
     else:
