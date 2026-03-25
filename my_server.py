@@ -31,6 +31,7 @@ model = load_face_model()
 # Khởi tạo Flask
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = ""
+os.makedirs('./image_get', exist_ok=True)
 
 # Giao diện trang chủ
 @app.route("/")
@@ -54,7 +55,7 @@ def face_shape_func():
             if not image:
                 return render_template('face_shape.html', msg='Hãy chọn file để tải lên')
 
-            path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
+            path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], './image_get/' + image.filename)
             print("Save = ", path_to_save)
             image.save(path_to_save)
 
@@ -130,7 +131,7 @@ def personal_color_func():
             if not image:
                 return render_template('personal_color.html', msg='Hãy chọn file để tải lên')
 
-            path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], 'D:/fashionmentor/image_get' + image.filename)
+            path_to_save = os.path.join(app.config['UPLOAD_FOLDER'], './image_get/' + image.filename)
             print("Save = ", path_to_save)
             image.save(path_to_save)
 
@@ -305,4 +306,4 @@ def inject_chatbot_widget(response):
 # ============================================================
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True)
