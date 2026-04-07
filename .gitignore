@@ -264,9 +264,6 @@ static/uploads/
 *.mov
 *.mkv
 *.webm
-*.jpg
-*.jpeg
-*.png
 *.gif
 *.bmp
 *.tiff
@@ -314,3 +311,4 @@ docker-compose.override.yml
 tmp/
 temp/
 stylist_output/
+image_get/
