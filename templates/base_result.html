@@ -10,6 +10,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/light_summer.css') }}">
     {% endif %}
     {% block extra_css %}{% endblock %}
+    <style>
+        .detail-view ol {
+            list-style-type: none;
+            counter-reset: item;
+            padding-left: 0;
+        }
+        .detail-view ol > li {
+            counter-increment: item;
+        }
+        .detail-view ol > li > h2::before {
+            content: counter(item) ". ";
+        }
+    </style>
 </head>
 <body>
 

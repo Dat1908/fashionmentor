@@ -313,3 +313,4 @@ docker-compose.override.yml
 .cache/
 tmp/
 temp/
+stylist_output/
